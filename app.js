@@ -9,10 +9,11 @@ const bodyparser = require('body-parser');
 app.use(express.static('public'))
 
 app.get('/', function (req, res, next) {
+  // set frontend variables in here for EJS -Jeremy
   res.sendFile(__dirname + '/index.ejs')
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, function () {
   console.log('Listening on ' + PORT)
