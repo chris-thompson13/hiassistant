@@ -9,7 +9,7 @@ const bodyparser = require('body-parser');
 app.use(express.static('public'))
 
 app.get('/', function (req, res, next) {
-  res.sendFile(__dirname + '/index.html')
+  res.sendFile(__dirname + '/index.ejs')
 })
 
 const PORT = process.env.PORT || 3000
