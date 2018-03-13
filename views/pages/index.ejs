@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <% include ../partials/head %>
+	<% include ../partials/head %>
 </head>
-  <body class="container">
+<body class="container">
 
-  <header>
-      <% include ../partials/header %>
-  </header>
+	<header>
+		<% include ../partials/header %>
+	</header>
 
-  <main>
-      <div class="jumbotron">
-          <h1><%= example %></h1>
-          <p>Welcome to templating using EJS</p>
-      </div>
-  </main>
+	<main>
+		<div class="jumbotron">
+				<h1>Results</h1>
+		</div>
 
-  <footer>
-      <% include ../partials/footer %>
-  </footer>
+		<div id="map"></div>
 
-  </body>
+		<div class="results">
+			<% include ../partials/form %>
+		</div>
+	</main>
+
+	<footer>
+			<% include ../partials/footer %>
+	</footer>
+	<script src="/js/map.js"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= api %>&callback=initMap">
+  </script>
+</body>
 </html>
