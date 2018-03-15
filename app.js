@@ -39,7 +39,6 @@ app.post('/api', function (req, res) {
     }
   }, function (error, response, data) {
     data = JSON.parse(data)[0]
-    console.log(data.address_info.lat)
     res.render('pages/results', {
       results: data.address_info.address_full,
       userLat: data.address_info.lat,
