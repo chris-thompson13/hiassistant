@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+</head>
+<body>
+// this is messy but works. refactor ?
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>"></script>
+<script>
+var userLat = <%= userLat %>
+var userLng = <%= userLng %>
+function initialize() {
+  var mapProp = {
+    center: {lat: userLat, lng: userLng},
+    zoom:4,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  var map=new google.maps.Map(document.getElementById("map"), mapProp);
+
+  var marker = new google.maps.Marker({
+    position: {lat: userLat, lng: userLng},
+    map: map
+  });
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+	<header>
+		<% include ../partials/header %>
+	</header>
+  <div class="container">
+
+
+    <p><%= results %></p>
+
+    <div id="map" style="width:500px;height:380px;"></div>
+  
+  </div>
+
+	<footer>
+			<% include ../partials/footer %>
+  </footer>
+
+</body>
+</html>
