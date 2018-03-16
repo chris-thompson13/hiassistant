@@ -23,13 +23,13 @@ module.exports = function (app, passport) {
         zipcode: zip,
         address: address
       }
-    }, function (error, response, data) {
-      data = JSON.parse(data)[0]
+    }, function (error, response, body) {
+      data = JSON.parse(body)[0]
       var address = data.address_info.address_full
       var lat = data.address_info.lat
       var lng = data.address_info.lng
       res.render('pages/results', {
-        results: data,
+        results: body,
         userLat: lat,
         userLng: lng,
         apiKey: auth.GOOGLE_MAPS_KEY
