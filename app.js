@@ -1,54 +1,35 @@
 const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
-const request = require('request');
 const bodyParser = require('body-parser');
+const flash = require('connect-flash');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const mongoose = require('mongoose');
 const app = express();
 
 const auth = require('./auth');
 
+mongoose.connect(auth.MONGO_KEY);
+
 app.set('view engine', 'ejs')
 
-app.use(express.static('public'))
+
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(session({
+  secret: 'testhiassistant'
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash());
 
-app.get('/', function (req, res) {
-
-  res.render('pages/index', {
-    api: auth.GOOGLE_MAPS_KEY
-  })
-
-})
-
-app.post('/api', function (req, res) {
-  var address = req.body.address
-  var zip = req.body.zipcode
-  var url = 'https://api.housecanary.com/v2/property/geocode'
-
-  request.get({
-    url: url,
-    auth: {
-      user: auth.HC_API_KEY,
-      pass: auth.HC_API_SEC
-    },
-    qs: {
-      zipcode: zip,
-      address: address
-    }
-  }, function (error, response, data) {
-    data = JSON.parse(data)[0]
-    res.render('pages/results', {
-      results: data.address_info.address_full,
-      userLat: data.address_info.lat,
-      userLng: data.address_info.lng,
-      apiKey: auth.GOOGLE_MAPS_KEY
-    });
-  });
-});
-
-// Login stuff???
+app.use(express.static('public'))
+require('./config/passport.js')(passport)
+require('./routes.js')(app, passport);
 
 const PORT = process.env.PORT || 3000;
 

@@ -11,8 +11,21 @@
 
 	<main>
 		<div class="jumbotron">
-				<h1>Results</h1>
+				<h1>HiAssistant</h1>
 		</div>
+		<% if(user != undefined) { %>
+
+		<div class="col-sm-6">
+			<div class="well">
+				<h3><span class="fa fa-user"></span> Local</h3>
+						<p>
+								<strong>id</strong>: <%= user._id %><br>
+								<strong>email</strong>: <%= user.local.email %><br>
+								<strong>password</strong>: <%= user.local.password %>
+						</p>
+			</div>
+		</div>
+		<% } %>
 
 
 		<div class="results">
