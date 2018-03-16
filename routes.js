@@ -1,5 +1,5 @@
 const request = require('request');
-const auth = require('auth.json')
+const auth = require('./auth.json')
 
 module.exports = function (app, passport) {
   app.get('/', function (req, res) {

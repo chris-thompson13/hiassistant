@@ -8,7 +8,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const app = express();
 
-const auth = require('./auth');
+const auth = require('./auth,json');
 
 mongoose.connect(auth.MONGO_KEY);
 
