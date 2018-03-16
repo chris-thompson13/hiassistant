@@ -29,7 +29,7 @@ module.exports = function (app, passport) {
       var lat = data.address_info.lat
       var lng = data.address_info.lng
       res.render('pages/results', {
-        results: address,
+        results: data,
         userLat: lat,
         userLng: lng,
         apiKey: auth.GOOGLE_MAPS_KEY
