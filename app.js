@@ -5,13 +5,12 @@ const flash = require('connect-flash');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const Parse = require('parse/node');
+const mongoose = require('mongoose');
 const app = express();
 
 const auth = require('./auth.json');
 
-Parse.initialize("hiassistanttest");
-Parse.serverURL = 'http://hiassistant-test.herokuapp.com/parse'
+mongoose.connect(auth.MONGO_KEY);
 
 app.set('view engine', 'ejs')
 
