@@ -7,3 +7,7 @@ html, body {
     height: 400px;
     background-color: grey;
 }
+
+.filter{
+    list-style: none;
+}

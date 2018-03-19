@@ -1,5 +1,6 @@
 const request = require('request');
-const auth = require('./auth.json')
+const auth = require('./auth.json');
+const URL = 'https://api.housecanary.com/v2/';
 
 module.exports = function (app, passport) {
   app.get('/', function (req, res) {
@@ -8,13 +9,12 @@ module.exports = function (app, passport) {
     });
   });
 
-  app.post('/api', function (req, res) {
+  app.post('/api/details', function (req, res) {
     var address = req.body.address
     var zip = req.body.zipcode
-    var url = 'https://api.housecanary.com/v2/property/geocode'
 
     request.get({
-      url: url,
+      url: URL + 'property/details',
       auth: {
         user: auth.HC_API_KEY,
         pass: auth.HC_API_SEC
