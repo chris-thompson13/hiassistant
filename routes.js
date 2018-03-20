@@ -1,22 +1,29 @@
 const request = require('request');
 const auth = require('./auth.json');
+const Parse = require('parse/node');
+const bodyParser = require('body-parser');
 const URL = 'https://api.housecanary.com/v2/';
 
-module.exports = function (app, passport) {
+module.exports = function (app) {
+  var currentUser = Parse.User.current();
+
   app.get('/', function (req, res) {
+    console.log(req.user)
+    console.log(currentUser)
     res.render('pages/index.ejs', {
-      user: req.user
+      user: currentUser
     });
   });
 
   app.post('/api/details', function (req, res) {
     var addressField = req.body.address
     var zipField = req.body.zipcode
-    if ( addressField === "" || zipField === "") {
+
+    if (addressField === "" || zipField === "") {
       res.redirect('/')
     } else {
       request.get({
-        url: URL + 'property/details_enhanced', 
+        url: URL + 'property/details_enhanced',
         auth: {
           user: auth.HC_API_KEY,
           pass: auth.HC_API_SEC
@@ -46,27 +53,45 @@ module.exports = function (app, passport) {
     });
   });
 
-  app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-  }));
+  app.post('/login', function (req, res) {
+    var loginUser = Parse.User.logIn(req.body.email, req.body.password, {
+      useMasterKey: true,
+      success: function (loginUser) {
+        res.redirect('/')
+      },
+      error: function (loginUser, error) {
+        console.log(error)
+      }
+    })
+  });
 
   app.get('/signup', function (req, res) {
-
     res.render('pages/signup.ejs', {
-      message: req.flash('signupMessage')
+      message: req.flash('loginMessage')
     });
   });
 
-  app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/',
-    failureRedirect: '/signup',
-    failureFlash: true
-  }));
+  app.post('/signup', function (req, res) {
+    var newUser = new Parse.User()
+    newUser.set("username", req.body.email);
+    newUser.set("password", req.body.password);
+    console.log(newUser)
+    newUser.signUp(null, {
+      useMasterKey: true,
+      success: function (newUser) {
+        console.log(newUser)
+        res.redirect('/')
+      },
+      error: function (newUser, error) {
+        console.log(error)
+      }
+    });
+  });
 
   app.get('/logout', function (req, res) {
-    req.logout();
+    Parse.User.logOut().then(function () {
+      currentUser = Parse.User.current(); // this will now be null
+    });
     res.redirect('/');
   });
 }

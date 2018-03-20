@@ -5,17 +5,28 @@ const flash = require('connect-flash');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const mongoose = require('mongoose');
+const ParseServer = require('parse-server').ParseServer;
 const app = express();
 
 const auth = require('./auth.json');
 
-mongoose.connect(auth.MONGO_KEY);
+app.use(morgan('dev')); // logs
+
+var api = new ParseServer({
+  databaseURI: auth.MONGO_KEY,
+  appId: process.env.APP_ID || auth.PARSE_KEY,
+  masterKey: process.env.MASTER_KEY || auth.MASTER_KEY, //Add your master key here.
+  serverURL: process.env.SERVER_URL || 'http://localhost:3000/parse', 
+  liveQuery: {
+    classNames: ["Users"] // List of classes to support for query subscriptions
+  },
+  restAPIKey: "hiassistant-test"
+});
+const mountPath = process.env.PARSE_MOUNT || '/parse';
+app.use(mountPath, api);
 
 app.set('view engine', 'ejs')
 
-
-app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -25,13 +36,10 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
 app.use(flash());
-
 app.use(express.static('public'))
-require('./config/passport.js')(passport)
-require('./routes.js')(app, passport);
+
+require('./routes.js')(app);
 
 const PORT = process.env.PORT || 3000;
 

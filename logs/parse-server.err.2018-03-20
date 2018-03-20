@@ -1,0 +1,10 @@
+{"error":{"code":209,"message":"invalid session token"},"level":"error","message":"Error generating response. ParseError { code: 209, message: 'invalid session token' }","timestamp":"2018-03-20T19:40:02.945Z"}
+{"code":209,"message":"invalid session token","level":"error","timestamp":"2018-03-20T19:40:02.950Z"}
+{"error":{"code":209,"message":"invalid session token"},"level":"error","message":"Error generating response. ParseError { code: 209, message: 'invalid session token' }","timestamp":"2018-03-20T19:42:02.953Z"}
+{"code":209,"message":"invalid session token","level":"error","timestamp":"2018-03-20T19:42:02.955Z"}
+{"error":{"code":209,"message":"invalid session token"},"level":"error","message":"Error generating response. ParseError { code: 209, message: 'invalid session token' }","timestamp":"2018-03-20T19:42:37.842Z"}
+{"code":209,"message":"invalid session token","level":"error","timestamp":"2018-03-20T19:42:37.848Z"}
+{"error":{"code":209,"message":"invalid session token"},"level":"error","message":"Error generating response. ParseError { code: 209, message: 'invalid session token' }","timestamp":"2018-03-20T19:43:19.908Z"}
+{"code":209,"message":"invalid session token","level":"error","timestamp":"2018-03-20T19:43:19.912Z"}
+{"error":{"code":101,"message":"Invalid username/password."},"level":"error","message":"Error generating response. ParseError { code: 101, message: 'Invalid username/password.' }","timestamp":"2018-03-20T19:57:50.088Z"}
+{"code":101,"message":"Invalid username/password.","level":"error","timestamp":"2018-03-20T19:57:50.092Z"}
