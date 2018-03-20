@@ -21,7 +21,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(session({
-  secret: 'testhiassistant'
+  secret: 'testhiassistant',
+  resave: true,
+  saveUninitialized: true
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
