@@ -47,6 +47,37 @@ module.exports = function (app) {
     }
   });
 
+  app.get('/business', function(req, res){
+     res.render('pages/business.ejs', {});
+  })
+
+  app.post('/business', function(req, res){
+    console.log(req.user)
+    var User = Parse.Object.extend('Users');
+    var query = new Parse.Query(User);
+    query.equalTo("_id", req.user._id);
+    query.first({
+      success: function(user) {
+        console.log(user)
+        user.set("fullName", req.body.fullName);
+        user.set("businessName", req.body.businessName);
+        user.set("businessAddress", req.body.businessAddress);
+        user.set("businessPhone", req.body.businessPhone);
+        user.set("inspectorList", req.body.insList);
+        user.set("salesPitch", req.body.sales);
+        user.set("website", req.body.website);
+        // user.set("profilePic", req.body.profilePic);
+
+        user.save();
+        res.redirect('/')
+
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+  })
+
   app.get('/login', function (req, res) {
     res.render('pages/login.ejs', {
       message: req.flash('loginMessage')
@@ -57,6 +88,7 @@ module.exports = function (app) {
     var loginUser = Parse.User.logIn(req.body.email, req.body.password, {
       useMasterKey: true,
       success: function (loginUser) {
+
         res.redirect('/')
       },
       error: function (loginUser, error) {
@@ -66,26 +98,36 @@ module.exports = function (app) {
   });
 
   app.get('/signup', function (req, res) {
+
     res.render('pages/signup.ejs', {
       message: req.flash('loginMessage')
     });
   });
 
   app.post('/signup', function (req, res) {
-    var newUser = new Parse.User()
-    newUser.set("username", req.body.email);
-    newUser.set("password", req.body.password);
-    console.log(newUser)
-    newUser.signUp(null, {
-      useMasterKey: true,
-      success: function (newUser) {
-        console.log(newUser)
-        res.redirect('/')
-      },
-      error: function (newUser, error) {
-        console.log(error)
-      }
-    });
+    
+    if (req.body.password === req.body.conPassword) {
+      var newUser = new Parse.User()
+      newUser.set("username", req.body.email);
+      newUser.set("password", req.body.password);
+      newUser.set("userType", req.body.userType);
+
+      newUser.signUp(null, {
+        useMasterKey: true,
+        success: function (newUser) {
+
+          res.redirect('/business')
+        },
+        error: function (newUser, error) {
+          console.log(error)
+        }
+      });
+    } else {
+      res.render('pages/signup.ejs', {
+        message: req.flash('loginMessage')
+      });
+    }
+
   });
 
   app.get('/logout', function (req, res) {

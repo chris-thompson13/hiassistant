@@ -7,8 +7,10 @@
 <!--this is messy but works. refactor ?-->
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>"></script>
 <script>
+
 var userLat = <%= userLat %>
 var userLng = <%= userLng %>
+
 function initialize() {
   var mapProp = {
     center: {lat: userLat, lng: userLng},
