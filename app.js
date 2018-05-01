@@ -25,7 +25,7 @@ const mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
 app.set('view engine', 'ejs')
-
+Parse.User.enableUnsafeCurrentUser()
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
   extended: true

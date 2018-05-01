@@ -5,11 +5,9 @@ const bodyParser = require('body-parser');
 const URL = 'https://api.housecanary.com/v2/';
 
 module.exports = function (app) {
-  var currentUser = Parse.User.current();
+  var currentUser = Parse.User.current()
 
   app.get('/', function (req, res) {
-    console.log(req.user)
-    console.log(currentUser)
     res.render('pages/index.ejs', {
       user: currentUser
     });
@@ -47,17 +45,19 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/business', function(req, res){
-     res.render('pages/business.ejs', {});
+  app.get('/business', function (req, res) {
+    var data = JSON.parse(req.session)
+    res.render('pages/business.ejs', {
+      user: req.session
+    });
   })
 
-  app.post('/business', function(req, res){
-    console.log(req.user)
+  app.post('/business', function (req, res) {
     var User = Parse.Object.extend('Users');
     var query = new Parse.Query(User);
-    query.equalTo("_id", req.user._id);
+    query.equalTo("id", req.session.user.id);
     query.first({
-      success: function(user) {
+      success: function (user) {
         console.log(user)
         user.set("fullName", req.body.fullName);
         user.set("businessName", req.body.businessName);
@@ -72,7 +72,7 @@ module.exports = function (app) {
         res.redirect('/')
 
       },
-      error: function(error) {
+      error: function (error) {
         alert("Error: " + error.code + " " + error.message);
       }
     });
@@ -92,7 +92,9 @@ module.exports = function (app) {
         res.redirect('/')
       },
       error: function (loginUser, error) {
-        console.log(error)
+        res.render('pages/login.ejs', {
+          message: req.flash(error)
+        });
       }
     })
   });
@@ -105,7 +107,7 @@ module.exports = function (app) {
   });
 
   app.post('/signup', function (req, res) {
-    
+
     if (req.body.password === req.body.conPassword) {
       var newUser = new Parse.User()
       newUser.set("username", req.body.email);
@@ -115,11 +117,16 @@ module.exports = function (app) {
       newUser.signUp(null, {
         useMasterKey: true,
         success: function (newUser) {
-
-          res.redirect('/business')
+          // I need to get the user here to save the extra info
+          req.session.user = newUser
+          res.render('pages/business.ejs', {
+            user: req.session.user
+          })
         },
         error: function (newUser, error) {
-          console.log(error)
+          res.render('pages/signup.ejs', {
+            message: error.message
+          });
         }
       });
     } else {
@@ -127,7 +134,6 @@ module.exports = function (app) {
         message: req.flash('loginMessage')
       });
     }
-
   });
 
   app.get('/logout', function (req, res) {

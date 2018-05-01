@@ -1,0 +1,20 @@
+{"error":{"code":202,"message":"Account already exists for this username."},"level":"error","message":"Error generating response. ParseError {\n  code: 202,\n  message: 'Account already exists for this username.' }","timestamp":"2018-05-01T15:07:03.487Z"}
+{"code":202,"message":"Account already exists for this username.","level":"error","timestamp":"2018-05-01T15:07:03.498Z"}
+{"error":{"code":202,"message":"Account already exists for this username."},"level":"error","message":"Error generating response. ParseError {\n  code: 202,\n  message: 'Account already exists for this username.' }","timestamp":"2018-05-01T15:19:20.487Z"}
+{"code":202,"message":"Account already exists for this username.","level":"error","timestamp":"2018-05-01T15:19:20.498Z"}
+{"error":{"code":101,"message":"Invalid username/password."},"level":"error","message":"Error generating response. ParseError { code: 101, message: 'Invalid username/password.' }","timestamp":"2018-05-01T15:25:41.736Z"}
+{"code":101,"message":"Invalid username/password.","level":"error","timestamp":"2018-05-01T15:25:41.741Z"}
+{"error":{"code":101,"message":"Invalid username/password."},"level":"error","message":"Error generating response. ParseError { code: 101, message: 'Invalid username/password.' }","timestamp":"2018-05-01T15:25:45.108Z"}
+{"code":101,"message":"Invalid username/password.","level":"error","timestamp":"2018-05-01T15:25:45.110Z"}
+{"error":{"code":101,"message":"Invalid username/password."},"level":"error","message":"Error generating response. ParseError { code: 101, message: 'Invalid username/password.' }","timestamp":"2018-05-01T15:25:46.156Z"}
+{"code":101,"message":"Invalid username/password.","level":"error","timestamp":"2018-05-01T15:25:46.157Z"}
+{"error":{"code":101,"message":"Invalid username/password."},"level":"error","message":"Error generating response. ParseError { code: 101, message: 'Invalid username/password.' }","timestamp":"2018-05-01T15:25:48.828Z"}
+{"code":101,"message":"Invalid username/password.","level":"error","timestamp":"2018-05-01T15:25:48.828Z"}
+{"error":{"code":101,"message":"Invalid username/password."},"level":"error","message":"Error generating response. ParseError { code: 101, message: 'Invalid username/password.' }","timestamp":"2018-05-01T15:26:35.129Z"}
+{"code":101,"message":"Invalid username/password.","level":"error","timestamp":"2018-05-01T15:26:35.133Z"}
+{"error":{"code":101,"message":"Invalid username/password."},"level":"error","message":"Error generating response. ParseError { code: 101, message: 'Invalid username/password.' }","timestamp":"2018-05-01T15:27:06.664Z"}
+{"code":101,"message":"Invalid username/password.","level":"error","timestamp":"2018-05-01T15:27:06.673Z"}
+{"error":{"code":101,"message":"Invalid username/password."},"level":"error","message":"Error generating response. ParseError { code: 101, message: 'Invalid username/password.' }","timestamp":"2018-05-01T15:53:55.731Z"}
+{"code":101,"message":"Invalid username/password.","level":"error","timestamp":"2018-05-01T15:53:55.736Z"}
+{"error":{"code":101,"message":"Invalid username/password."},"level":"error","message":"Error generating response. ParseError { code: 101, message: 'Invalid username/password.' }","timestamp":"2018-05-01T15:54:03.084Z"}
+{"code":101,"message":"Invalid username/password.","level":"error","timestamp":"2018-05-01T15:54:03.086Z"}
